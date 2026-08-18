@@ -1,6 +1,6 @@
 # GhostLock 5.10
 
-This is a kernel root exploit for the Amazon Fire Max 11 (`sunstone`) and the Fire TV Stick 4K 2nd Gen / 2023 (`karat`), adapted from CVE-2026-43499 in [CyberMeowfia](https://github.com/NebuSec/CyberMeowfia).
+This is a kernel root exploit for the Amazon Fire Max 11 (`sunstone`) and the Fire TV Stick 4K Max 2nd Gen / 2023 (`karat`), adapted from CVE-2026-43499 in [CyberMeowfia](https://github.com/NebuSec/CyberMeowfia).
 
 ## Supported devices
 
@@ -22,11 +22,15 @@ Two devices are supported, both on Fire OS 8. Each has its own build target.
 | 8.3.2.0 | RS8320.1807N | `0021777289092` | `-g66ce35ca5a96` |
 | 8.3.1.9 | RS8319.1664N | `0021508817028` | `-gec87eda1378d` |
 
-### Fire TV Stick 4K 2nd Gen (`karat`)
+### Fire TV Stick 4K Max 2nd Gen (`karat`)
 
 | Fire OS | Build | Incremental | Kernel |
 |---|---|---|---|
 | 8.1.8.0 | RS8180.3739N | `0032280320768` | `-g76bdd754c12c` |
+| 8.1.8.0 | RS8180.3729N | `0032280318208` | `-g76bdd754c12c` |
+| 8.1.7.4 | RS8174.3648N | `0031877644288` | `-ge1cb3cb5ad98` |
+| 8.1.7.4 | RS8174.3641N | `0031877642496` | `-ge1cb3cb5ad98` |
+| 8.1.6.9 | RS8169.3556N | `0031139423232` | `-ge1cb3cb5ad98` |
 | 8.1.6.6 | RS8166.3482N | `0030736751236` | `-gff609fc8f789` |
 | 8.1.6.0 | RS8160.3380N | `0030501844100` | `-ga8c852b26125` |
 | 8.1.6.0 | RS8160.3372N | `0030501842052` | `-ga8c852b26125` |
@@ -43,7 +47,7 @@ Requires GNU Make and Android NDK r29.
 
 ```sh
 make                 # Fire Max 11 (sunstone), the default
-make PROJECT=karat   # Fire TV Stick 4K 2nd Gen
+make PROJECT=karat   # Fire TV Stick 4K Max 2nd Gen
 ```
 
 Or build a distributable zip, which handles everything for you:
