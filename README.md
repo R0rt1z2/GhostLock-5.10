@@ -91,7 +91,17 @@ stty raw -echo; nc 127.0.0.1 9999; stty sane
 ```
 
 > [!CAUTION]
-> While you are root, our device still uses dm-verity, so any modification to the system/vendor/etc. partitions will result in a brick. Damaging critical partitions such as LK, TEE, or Preloader will also result in a brick. Use this exploit at your own risk.
+> While you are root, our device still uses dm-verity, so any modification to the system/vendor/etc. partitions will result in a brick.
+>
+> Damaging critical partitions such as LK, TEE, or Preloader will also result in a brick. Use this exploit at your own risk.
+
+### LM shell
+
+On the Fire TV Stick, a second raw root shell is opened on `127.0.0.1:9060` for [Launcher Manager](https://xdaforums.com/t/app-firetv-noroot-launcher-manager-change-launcher-without-root.4176349/).
+
+LM normally spawns its own as the system user, but it reuses the port if it is already open, so if the exploit is holding `9060` with a root shell, it should operate as root instead.
+
+Run the exploit first so it claims the port, then (re)launch LM.
 
 ## OTAs
 

