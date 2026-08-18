@@ -136,3 +136,5 @@ This survives reboots but not a factory reset. To re-enable, `pm enable` (or `pm
 
 - [CyberMeowfia](https://github.com/NebuSec/CyberMeowfia): original IonStack (CVE-2026-43499) exploit
 - [IonStackQuest3](https://github.com/F-19-F/IonStackQuest3): first public port for 5.10 kernels
+- [Pro-me3us](https://github.com/Pro-me3us): karat firmware URL collection
+- [sweenwolf](https://github.com/sweenwolf): Launcher Manager, used on FTVs
