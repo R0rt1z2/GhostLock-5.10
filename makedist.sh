@@ -8,8 +8,8 @@ NDK_DIR="$CACHE/$NDK_VER"
 PROJECT=${PROJECT:-sunstone}
 STAMP=$(date +%Y%m%d)
 DIST="$HERE/dist"
-STAGE="$DIST/ghostlock-$STAMP"
-ZIP="$DIST/ghostlock-$STAMP.zip"
+STAGE="$DIST/ghostlock-$PROJECT-$STAMP"
+ZIP="$DIST/ghostlock-$PROJECT-$STAMP.zip"
 
 fetch() {
   url=$1
