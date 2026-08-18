@@ -26,6 +26,7 @@ Two devices are supported, both on Fire OS 8. Each has its own build target.
 
 | Fire OS | Build | Incremental | Kernel |
 |---|---|---|---|
+| 8.1.8.0 | RS8180.3739N | `0032280320768` | `-g76bdd754c12c` |
 | 8.1.6.6 | RS8166.3482N | `0030736751236` | `-gff609fc8f789` |
 | 8.1.6.0 | RS8160.3380N | `0030501844100` | `-ga8c852b26125` |
 | 8.1.6.0 | RS8160.3372N | `0030501842052` | `-ga8c852b26125` |
