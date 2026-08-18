@@ -65,7 +65,9 @@
 #define MM_PARTIALS 5
 #endif
 
+#ifndef CORE
 #define CORE 0
+#endif
 #define KSNITCH_COLLISIONS 8
 
 #define ORDER2_SIZE   (PAGE_SIZE << 2)

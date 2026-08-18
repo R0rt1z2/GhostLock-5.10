@@ -57,6 +57,8 @@
 #define STAMP_NFDS 320
 #define STAMP_WAITER_OFF 0x54
 
+#define CORE 3
+
 #define LOCK_OFF 0x1000
 #define FOPS_OFF 0x2000
 #define W0_OFF 0x2400
