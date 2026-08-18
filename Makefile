@@ -13,7 +13,7 @@ endif
 define pick_src
 src/$(1)
 endef
-EMBED_SU := $(EMBEDDIR)/su_daemon_aarch64_pie
+EMBED_SU := $(EMBEDDIR)/su_daemon_arm32_static
 EMBED_EXP32 := $(EMBEDDIR)/ghostlock_stage_arm32
 PRELOAD := $(OUTDIR)/preload
 
@@ -138,8 +138,8 @@ $(EMBEDDIR):
 	mkdir -p $@
 
 $(EMBED_SU): src/su_daemon.c | $(EMBEDDIR)
-	$(TARGET_CC) $(TARGET_FLAGS) $(PIE_CFLAGS) $(TARGET_CFLAGS) \
-	  $< $(TARGET_PIE_LDFLAGS) -o $@
+	$(TARGET_CC32) $(TARGET32_FLAGS) $(COMMON_CFLAGS) $(WARN_CFLAGS) \
+	  $(TARGET_CFLAGS) -fPIE -pie -static $< $(TARGET32_PIE_LDFLAGS) -o $@
 
 EXP32_SRCS := src/exp32/main.c src/exp32/stack.c
 

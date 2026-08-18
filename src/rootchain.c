@@ -211,34 +211,60 @@ static int selinux_permissive(void) {
   char v[8]; read_first_line("/sys/fs/selinux/enforce", v, sizeof(v)); return v[0] == '0';
 }
 
-static void disable_ota(void) {
-  static const char *pkgs[] = {
-    "com.amazon.device.software.ota",
-    "com.amazon.kindle.otter.oobe.forced.ota",
-  };
-  for (size_t i = 0; i < sizeof(pkgs) / sizeof(pkgs[0]); i++) {
-    pid_t c = fork();
-    if (c == 0) {
-      int nul = open("/dev/null", O_WRONLY | O_CLOEXEC);
-      if (nul >= 0) {
-        dup2(nul, STDOUT_FILENO);
-        dup2(nul, STDERR_FILENO);
-        if (nul > STDERR_FILENO) close(nul);
-      }
-      setresgid(0, 0, 0);
-      setresuid(0, 0, 0);
-      set_shell_ctx();
-      execl("/system/bin/pm", "pm", "disable", pkgs[i], (char *)NULL);
-      _exit(127);
+static void run_pm(const char *action, const char *pkg) {
+  pid_t c = fork();
+  if (c == 0) {
+    int nul = open("/dev/null", O_WRONLY | O_CLOEXEC);
+    if (nul >= 0) {
+      dup2(nul, STDOUT_FILENO);
+      dup2(nul, STDERR_FILENO);
+      if (nul > STDERR_FILENO) close(nul);
     }
-    if (c > 0) {
-      int st = 0;
-      while (waitpid(c, &st, 0) < 0 && errno == EINTR) {
-      }
-      int ok = WIFEXITED(st) && WEXITSTATUS(st) == 0;
-      pr_info("OTA: %s %s\n", pkgs[i], ok ? "disabled" : "not disabled");
-    }
+    setresgid(0, 0, 0);
+    setresuid(0, 0, 0);
+    set_shell_ctx();
+    execl("/system/bin/pm", "pm", action, pkg, (char *)NULL);
+    _exit(127);
   }
+  if (c > 0) {
+    int st = 0;
+    while (waitpid(c, &st, 0) < 0 && errno == EINTR) {
+    }
+    int ok = WIFEXITED(st) && WEXITSTATUS(st) == 0;
+    pr_info("OTA: pm %s %s %s\n", action, pkg, ok ? "ok" : "not applied");
+  }
+}
+
+static int device_is_firetv(void) {
+  char dev[PROP_VALUE_MAX] = "";
+  __system_property_get("ro.product.device", dev);
+  return strcmp(dev, "karat") == 0;
+}
+
+static void disable_ota(void) {
+  static const char *tablet[][2] = {
+    { "disable", "com.amazon.device.software.ota" },
+    { "disable", "com.amazon.kindle.otter.oobe.forced.ota" },
+  };
+  static const char *firetv[][2] = {
+    { "disable",      "com.amazon.device.software.ota" },
+    { "clear",        "com.amazon.device.software.ota" },
+    { "disable",      "com.amazon.device.software.ota.override" },
+    { "disable-user", "com.amazon.sneakpeek" },
+    { "disable",      "com.amazon.client.metrics" },
+  };
+
+  const char *(*list)[2];
+  size_t n;
+  if (device_is_firetv()) {
+    list = firetv;
+    n = sizeof(firetv) / sizeof(firetv[0]);
+  } else {
+    list = tablet;
+    n = sizeof(tablet) / sizeof(tablet[0]);
+  }
+  for (size_t i = 0; i < n; i++) run_pm(list[i][0], list[i][1]);
+
   pid_t s = fork();
   if (s == 0) { execl("/system/bin/sync", "sync", (char *)NULL); _exit(127); }
   if (s > 0) while (waitpid(s, NULL, 0) < 0 && errno == EINTR) {

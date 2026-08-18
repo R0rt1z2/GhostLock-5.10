@@ -12,6 +12,326 @@ struct target_entry {
 
 static const struct target_entry g_targets[] = {
   {
+    .label = "Fire OS 8.1.5.8 (RS8158.4105N / 0030468475268)",
+    .device_match = "karat",
+    .banner_match = "-gb7ca23cc70e6",
+    .fp_match = "0030468475268",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+
+      .random_misc_fops_off = 0x016d6f98ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173ee60ULL,
+      .ashmem_ioctl_off = 0x0101e53cULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d8ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af28ULL,
+      .ashmem_release_off = 0x0101af20ULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c40ULL,
+      .configfs_read_file_off = 0x01018838ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2c0ULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2d40ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a26b0ULL,
+      .kmalloc_caches_off = 0x017a2210ULL,
+      .anon_pipe_buf_ops_off = 0x015db2a0ULL,
+
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL, /* panic msg buf, aligned */
+    },
+  },
+  {
+    .label = "Fire OS 8.1.6.6 (RS8166.3482N / 0030736751236)",
+    .device_match = "karat",
+    .banner_match = "-gff609fc8f789",
+    .fp_match = "0030736751236",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+
+      .random_misc_fops_off = 0x016d7058ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173ef20ULL,
+      .ashmem_ioctl_off = 0x0101e53cULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d8ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af28ULL,
+      .ashmem_release_off = 0x0101af20ULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c40ULL,
+      .configfs_read_file_off = 0x01018838ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2c0ULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2e00ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a2770ULL,
+      .kmalloc_caches_off = 0x017a22d0ULL,
+      .anon_pipe_buf_ops_off = 0x015db360ULL,
+
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL, /* panic msg buf, aligned */
+    },
+  },
+  {
+    .label = "Fire OS 8.1.6.0 (RS8160.3380N / 0030501844100)",
+    .device_match = "karat",
+    .banner_match = "-ga8c852b26125",
+    .fp_match = "0030501844100",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+
+      .random_misc_fops_off = 0x016d7058ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173ef20ULL,
+      .ashmem_ioctl_off = 0x0101e53cULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d8ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af28ULL,
+      .ashmem_release_off = 0x0101af20ULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c40ULL,
+      .configfs_read_file_off = 0x01018838ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2c0ULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2e00ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a2770ULL,
+      .kmalloc_caches_off = 0x017a22d0ULL,
+      .anon_pipe_buf_ops_off = 0x015db360ULL,
+
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL,
+    },
+  },
+  {
+    .label = "Fire OS 8.1.6.0 (RS8160.3372N / 0030501842052)",
+    .device_match = "karat",
+    .banner_match = "-ga8c852b26125",
+    .fp_match = "0030501842052",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+
+      .random_misc_fops_off = 0x016d7058ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173ef20ULL,
+      .ashmem_ioctl_off = 0x0101e53cULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d8ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af28ULL,
+      .ashmem_release_off = 0x0101af20ULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c40ULL,
+      .configfs_read_file_off = 0x01018838ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2c0ULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2e00ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a2770ULL,
+      .kmalloc_caches_off = 0x017a22d0ULL,
+      .anon_pipe_buf_ops_off = 0x015db360ULL,
+
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL,
+    },
+  },
+  {
+    .label = "Fire OS 8.1.5.5 (RS8155.3474N / 0029998551684)",
+    .device_match = "karat",
+    .banner_match = "-g05616ee8f7f7",
+    .fp_match = "0029998551684",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+      .random_misc_fops_off = 0x016d64d8ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173e360ULL,
+      .ashmem_ioctl_off = 0x0101e538ULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d4ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af24ULL,
+      .ashmem_release_off = 0x0101af1cULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c3cULL,
+      .configfs_read_file_off = 0x01018834ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2bcULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2240ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a1bb0ULL,
+      .kmalloc_caches_off = 0x017a1710ULL,
+      .anon_pipe_buf_ops_off = 0x015da7e0ULL,
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL,
+    },
+  },
+  {
+    .label = "Fire OS 8.1.5.3 (RS8153.3202N / 0029528720004)",
+    .device_match = "karat",
+    .banner_match = "-g05616ee8f7f7",
+    .fp_match = "0029528720004",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+      .random_misc_fops_off = 0x016d6518ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173e3a0ULL,
+      .ashmem_ioctl_off = 0x0101e538ULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d4ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af24ULL,
+      .ashmem_release_off = 0x0101af1cULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c3cULL,
+      .configfs_read_file_off = 0x01018834ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2bcULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2280ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a1bf0ULL,
+      .kmalloc_caches_off = 0x017a1750ULL,
+      .anon_pipe_buf_ops_off = 0x015da820ULL,
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL,
+    },
+  },
+  {
+    .label = "Fire OS 8.1.4.9 (RS8149.3133N / 0028723395972)",
+    .device_match = "karat",
+    .banner_match = "-gb0c9d6e017fb",
+    .fp_match = "0028723395972",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+      .random_misc_fops_off = 0x016d6458ULL,
+      .ashmem_misc_fops_off = 0x01be0b90ULL,
+      .ashmem_fops_off = 0x0173e2e0ULL,
+      .ashmem_ioctl_off = 0x0101e538ULL,
+      .ashmem_compat_ioctl_off = 0x0101e5d4ULL,
+      .ashmem_mmap_off = 0x0100fd10ULL,
+      .ashmem_open_off = 0x0101af24ULL,
+      .ashmem_release_off = 0x0101af1cULL,
+      .ashmem_show_fdinfo_off = 0x01012c6cULL,
+      .ashmem_read_iter_off = 0x01018c3cULL,
+      .configfs_read_file_off = 0x01018834ULL,
+      .configfs_write_bin_file_off = 0x010128b4ULL,
+      .copy_splice_read_off = 0x0101c2bcULL,
+      .noop_llseek_off = 0x0100aab8ULL,
+      .init_task_off = 0x01a49d40ULL,
+      .init_uts_ns_off = 0x01a48b28ULL,
+      .empty_zero_page_off = 0x01c61000ULL,
+      .root_task_group_off = 0x01c67b80ULL,
+      .selinux_blob_sizes_off = 0x017a2180ULL,
+      .selinux_enforcing_off = 0x01ca12f8ULL,
+      .security_hook_heads_off = 0x017a1af0ULL,
+      .kmalloc_caches_off = 0x017a1650ULL,
+      .anon_pipe_buf_ops_off = 0x015da760ULL,
+      .slide_random_boot_id_data_off = 0x01b40580ULL,
+      .slide_sysctl_bootid_off = 0x01cd2a94ULL,
+      .slide_loggers_0_1_off = 0x01a3e330ULL,
+      .slide_nfulnl_logger_off = 0x01a3e400ULL,
+      .init_cred_off = 0x01a5ad28ULL,
+      .panic_scratch_off = 0x01c64dd8ULL,
+    },
+  },
+  {
+    .label = "Fire OS 8.1.4.5 (RS8145.3070N / 0028186508932)",
+    .device_match = "karat",
+    .banner_match = "-gabbd3a8e8dee",
+    .fp_match = "0028186508932",
+    .ksym = {
+      .kimage_text_base = 0xffffffc010000000ULL,
+      .random_misc_fops_off = 0x016d0ea0ULL,
+      .ashmem_misc_fops_off = 0x01bd4710ULL,
+      .ashmem_fops_off = 0x01738520ULL,
+      .ashmem_ioctl_off = 0x0101e594ULL,
+      .ashmem_compat_ioctl_off = 0x0101e630ULL,
+      .ashmem_mmap_off = 0x0100fd9cULL,
+      .ashmem_open_off = 0x0101af78ULL,
+      .ashmem_release_off = 0x0101af70ULL,
+      .ashmem_show_fdinfo_off = 0x01012c90ULL,
+      .ashmem_read_iter_off = 0x01018bb8ULL,
+      .configfs_read_file_off = 0x010187c8ULL,
+      .configfs_write_bin_file_off = 0x010128e0ULL,
+      .copy_splice_read_off = 0x0101c310ULL,
+      .noop_llseek_off = 0x0100ab40ULL,
+      .init_task_off = 0x01a39d40ULL,
+      .init_uts_ns_off = 0x01a38b28ULL,
+      .empty_zero_page_off = 0x01c55000ULL,
+      .root_task_group_off = 0x01c5bb80ULL,
+      .selinux_blob_sizes_off = 0x0179c3c0ULL,
+      .selinux_enforcing_off = 0x01c952f8ULL,
+      .security_hook_heads_off = 0x0179bd30ULL,
+      .kmalloc_caches_off = 0x0179b890ULL,
+      .anon_pipe_buf_ops_off = 0x015d51a0ULL,
+      .slide_random_boot_id_data_off = 0x01b30580ULL,
+      .slide_sysctl_bootid_off = 0x01cc6a94ULL,
+      .slide_loggers_0_1_off = 0x01a2e330ULL,
+      .slide_nfulnl_logger_off = 0x01a2e400ULL,
+      .init_cred_off = 0x01a4ad28ULL,
+      .panic_scratch_off = 0x01c58dd8ULL,
+    },
+  },
+  {
     .label = "Fire OS 8.3.3.8 (RS8338.3339N / 0030132734852)",
     .device_match = "sunstone",
     .banner_match = "-ge7a6aa0ea53f",
@@ -518,6 +838,17 @@ const char *ksym_config_select_for_device(void) {
   }
 
   for (size_t i = 0; i < N_TARGETS; i++) {
+    if (g_targets[i].fp_match && fp[0] &&
+        strstr(fp, g_targets[i].fp_match)) {
+      if (!device_ok(&g_targets[i], dev)) {
+        continue;
+      }
+      g_ksym = g_targets[i].ksym;
+      return g_targets[i].label;
+    }
+  }
+
+  for (size_t i = 0; i < N_TARGETS; i++) {
     if (g_targets[i].banner_match && banner[0] &&
         strstr(banner, g_targets[i].banner_match)) {
       if (!device_ok(&g_targets[i], dev)) {
@@ -527,19 +858,8 @@ const char *ksym_config_select_for_device(void) {
         continue;
       }
       g_ksym = g_targets[i].ksym;
-      return g_targets[i].label;
-    }
-  }
-
-  for (size_t i = 0; i < N_TARGETS; i++) {
-    if (g_targets[i].fp_match && fp[0] &&
-        strstr(fp, g_targets[i].fp_match)) {
-      if (!device_ok(&g_targets[i], dev)) {
-        continue;
-      }
-      g_ksym = g_targets[i].ksym;
-      pr_warning("Target: matched %s by fingerprint, not kernel banner; "
-                 "verify /proc/version if the run fails\n",
+      pr_warning("Target: matched %s by kernel banner, not build fingerprint; "
+                 "verify the incremental if the run fails\n",
                  g_targets[i].label);
       return g_targets[i].label;
     }

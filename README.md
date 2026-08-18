@@ -1,12 +1,12 @@
 # GhostLock 5.10
 
-This is a kernel root exploit for the Amazon Fire Max 11 (`sunstone`), adapted from CVE-2026-43499 in [CyberMeowfia](https://github.com/NebuSec/CyberMeowfia).
+This is a kernel root exploit for the Amazon Fire Max 11 (`sunstone`) and the Fire TV Stick 4K 2nd Gen / 2023 (`karat`), adapted from CVE-2026-43499 in [CyberMeowfia](https://github.com/NebuSec/CyberMeowfia).
 
 ## Supported devices
 
-Only the Amazon Fire Max 11 is supported for now. The exploit works on Fire OS 8.
+Two devices are supported, both on Fire OS 8. Each has its own build target.
 
-The following table lists the FireOS versions that have been tested with this exploit:
+### Fire Max 11 (`sunstone`)
 
 | Fire OS | Build | Incremental | Kernel |
 |---|---|---|---|
@@ -22,19 +22,34 @@ The following table lists the FireOS versions that have been tested with this ex
 | 8.3.2.0 | RS8320.1807N | `0021777289092` | `-g66ce35ca5a96` |
 | 8.3.1.9 | RS8319.1664N | `0021508817028` | `-gec87eda1378d` |
 
+### Fire TV Stick 4K 2nd Gen (`karat`)
+
+| Fire OS | Build | Incremental | Kernel |
+|---|---|---|---|
+| 8.1.6.6 | RS8166.3482N | `0030736751236` | `-gff609fc8f789` |
+| 8.1.6.0 | RS8160.3380N | `0030501844100` | `-ga8c852b26125` |
+| 8.1.6.0 | RS8160.3372N | `0030501842052` | `-ga8c852b26125` |
+| 8.1.5.8 | RS8158.4105N | `0030468475268` | `-gb7ca23cc70e6` |
+| 8.1.5.5 | RS8155.3474N | `0029998551684` | `-g05616ee8f7f7` |
+| 8.1.5.3 | RS8153.3202N | `0029528720004` | `-g05616ee8f7f7` |
+| 8.1.4.9 | RS8149.3133N | `0028723395972` | `-gb0c9d6e017fb` |
+| 8.1.4.5 | RS8145.3070N | `0028186508932` | `-gabbd3a8e8dee` |
+
 
 ## Building
 
 Requires GNU Make and Android NDK r29.
 
 ```sh
-make
+make                 # Fire Max 11 (sunstone), the default
+make PROJECT=karat   # Fire TV Stick 4K 2nd Gen
 ```
 
 Or build a distributable zip, which handles everything for you:
 
 ```sh
-./makedist.sh
+./makedist.sh                 # sunstone
+PROJECT=karat ./makedist.sh   # karat
 ```
 
 The result is written to `dist/ghostlock-<date>.zip`.
@@ -73,16 +88,15 @@ stty raw -echo; nc 127.0.0.1 9999; stty sane
 > [!CAUTION]
 > While you are root, our device still uses dm-verity, so any modification to the system/vendor/etc. partitions will result in a brick. Damaging critical partitions such as LK, TEE, or Preloader will also result in a brick. Use this exploit at your own risk.
 
-## OTAs 
+## OTAs
+
 OTA updates are disabled automatically as soon as root succeeds. A single OTA can move you to a build that is not supported here, or that fixes the exploit.
 
-When running the exploit, look for the following lines in the output to confirm that OTAs are disabled:
-```
-OTA: com.amazon.device.software.ota disabled
-OTA: com.amazon.kindle.otter.oobe.forced.ota disabled
-```
+The exact packages differ between the tablet and the Fire TV Stick, the exploit picks the right set based on the device. Look for `OTA: pm ... ok` lines in the output to confirm.
 
-If either says `not disabled`, run it yourself from the root shell:
+If any step reports `not applied`, run it yourself from the root shell.
+
+On the Fire Max 11 (`sunstone`):
 
 ```sh
 pm disable com.amazon.device.software.ota
@@ -90,13 +104,18 @@ pm disable com.amazon.kindle.otter.oobe.forced.ota
 sync
 ```
 
-This survives reboots but not a factory reset. If you wish to enable them back, spawn a root shell and run:
+On the Fire TV Stick (`karat`):
 
 ```sh
-pm enable com.amazon.device.software.ota
-pm enable com.amazon.kindle.otter.oobe.forced.ota
+pm disable com.amazon.device.software.ota
+pm clear com.amazon.device.software.ota
+pm disable com.amazon.device.software.ota.override
+pm disable-user com.amazon.sneakpeek
+pm disable com.amazon.client.metrics
 sync
 ```
+
+This survives reboots but not a factory reset. To re-enable, `pm enable` (or `pm enable-user`) the same packages from a root shell.
 
 ## Credits
 
