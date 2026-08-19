@@ -35,7 +35,7 @@ else
 fi
 [ -d "$NDK_DIR" ] || { echo "Toolchain missing after unpack: $NDK_DIR"; exit 1; }
 
-for os in linux windows; do
+for os in linux darwin windows; do
   fetch "https://dl.google.com/android/repository/platform-tools-latest-$os.zip" \
         "$CACHE/platform-tools-$os.zip"
 done
@@ -46,7 +46,7 @@ PRELOAD="$HERE/build/$PROJECT/bin/preload"
 [ -f "$PRELOAD" ] || { echo "Build produced no preload"; exit 1; }
 
 rm -rf "$STAGE" "$ZIP"
-mkdir -p "$STAGE/bin/linux" "$STAGE/bin/windows"
+mkdir -p "$STAGE/bin/linux" "$STAGE/bin/mac" "$STAGE/bin/windows"
 
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
@@ -54,6 +54,10 @@ trap 'rm -rf "$TMP"' EXIT
 unzip -q -o "$CACHE/platform-tools-linux.zip" -d "$TMP/linux"
 cp "$TMP/linux/platform-tools/adb" "$STAGE/bin/linux/adb"
 chmod 755 "$STAGE/bin/linux/adb"
+
+unzip -q -o "$CACHE/platform-tools-darwin.zip" -d "$TMP/darwin"
+cp "$TMP/darwin/platform-tools/adb" "$STAGE/bin/mac/adb"
+chmod 755 "$STAGE/bin/mac/adb"
 
 unzip -q -o "$CACHE/platform-tools-windows.zip" -d "$TMP/windows"
 for f in adb.exe AdbWinApi.dll AdbWinUsbApi.dll; do

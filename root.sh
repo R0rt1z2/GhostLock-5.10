@@ -2,10 +2,23 @@
 set -e
 
 HERE=$(cd "$(dirname "$0")" && pwd)
+case "$(uname -s)" in
+  Darwin) BUNDLED_ADB="$HERE/bin/mac/adb" ;;
+  *) BUNDLED_ADB="$HERE/bin/linux/adb" ;;
+esac
 if command -v adb >/dev/null 2>&1; then
   ADB=adb
 else
-  ADB="$HERE/bin/linux/adb"
+  ADB="$BUNDLED_ADB"
+fi
+if ! command -v seq >/dev/null 2>&1; then
+  seq() {
+    n=1
+    while [ "$n" -le "$1" ]; do
+      echo "$n"
+      n=$((n + 1))
+    done
+  }
 fi
 if [ -f "$HERE/bin/preload" ]; then
   DEFAULT_PRELOAD="$HERE/bin/preload"
