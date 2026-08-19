@@ -2,10 +2,10 @@
 set -e
 
 HERE=$(cd "$(dirname "$0")" && pwd)
-if [ -x "$HERE/bin/linux/adb" ]; then
-  ADB="$HERE/bin/linux/adb"
-else
+if command -v adb >/dev/null 2>&1; then
   ADB=adb
+else
+  ADB="$HERE/bin/linux/adb"
 fi
 if [ -f "$HERE/bin/preload" ]; then
   DEFAULT_PRELOAD="$HERE/bin/preload"
