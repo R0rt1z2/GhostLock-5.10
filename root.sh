@@ -31,6 +31,18 @@ TRIES=${2:-8}
 LOG=/data/local/tmp/ghostlock.log
 TAIL=
 STTY=
+WIFI_OFF=
+
+disable_wifi() {
+  serial=$("$ADB" get-serialno 2>/dev/null | tr -d '\r')
+  case "$serial" in
+    *:[0-9]*|*._tcp) return 0 ;;
+  esac
+  if [ -z "$WIFI_OFF" ]; then
+    WIFI_OFF=1
+  fi
+  "$ADB" shell svc wifi disable >/dev/null 2>&1 || true
+}
 
 stop_tail() {
   [ -n "$TAIL" ] && kill "$TAIL" 2>/dev/null
@@ -52,6 +64,8 @@ for i in $(seq "$TRIES"); do
     sleep 2
   done
   sleep 3
+
+  disable_wifi
 
   "$ADB" push "$PRELOAD" /data/local/tmp/preload >/dev/null
   "$ADB" shell "chmod 755 /data/local/tmp/preload; rm -f /data/local/tmp/ghostlock.proof $LOG; nohup /data/local/tmp/preload >$LOG 2>&1 &"

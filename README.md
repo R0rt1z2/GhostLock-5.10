@@ -69,6 +69,8 @@ On Windows, run `root.bat`.
 
 The script reboots the device, runs the exploit, and drops you into a root shell when it finishes. If it fails, it will automatically retry up to 8 times.
 
+If the device is attached over USB, the script also turns Wi-Fi off on each attempt, which makes the exploit noticeably more reliable. 
+
 If successful, you will see a root shell prompt like this:
 
 ```

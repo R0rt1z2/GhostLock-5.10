@@ -14,6 +14,16 @@ if (-not $Preload) {
 }
 
 $Log = "/data/local/tmp/ghostlock.log"
+$WifiOff = $false
+
+function Disable-Wifi {
+  $serial = (& $Adb get-serialno 2>$null | Out-String).Trim()
+  if ($serial -match '^.+:\d+$' -or $serial -match '\._tcp$') { return }
+  if (-not $script:WifiOff) {
+    $script:WifiOff = $true
+  }
+  & $Adb shell svc wifi disable 2>$null | Out-Null
+}
 
 function Wait-Boot {
   & $Adb wait-for-device | Out-Null
@@ -35,6 +45,8 @@ for ($i = 1; $i -le $Tries; $i++) {
   & $Adb reboot 2>$null | Out-Null
   Wait-Boot
   Start-Sleep -Seconds 3
+
+  Disable-Wifi
 
   & $Adb push $Preload /data/local/tmp/preload | Out-Null
   & $Adb shell "chmod 755 /data/local/tmp/preload; rm -f /data/local/tmp/ghostlock.proof $Log; nohup /data/local/tmp/preload >$Log 2>&1 &" | Out-Null
