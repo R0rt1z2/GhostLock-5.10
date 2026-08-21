@@ -58,7 +58,8 @@ Or build a distributable zip, which handles everything for you:
 PROJECT=karat ./makedist.sh   # karat
 ```
 
-The result is written to `dist/ghostlock-<date>.zip`.
+The result is written to `dist/ghostlock-<project>-v<version>.zip`, where the
+version comes from the `VERSION` file (override with `VERSION=x.y.z ./makedist.sh`).
 
 ## Usage
 

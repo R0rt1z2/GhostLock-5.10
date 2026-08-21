@@ -6,10 +6,11 @@ CACHE=${CACHE:-$HOME/android-ndk-cache}
 NDK_VER=${NDK_VER:-android-ndk-r29}
 NDK_DIR="$CACHE/$NDK_VER"
 PROJECT=${PROJECT:-sunstone}
-STAMP=$(date +%Y%m%d)
+VERSION=${VERSION:-$(cat "$HERE/VERSION")}
+[ -n "$VERSION" ] || { echo "No version in $HERE/VERSION"; exit 1; }
 DIST="$HERE/dist"
-STAGE="$DIST/ghostlock-$PROJECT-$STAMP"
-ZIP="$DIST/ghostlock-$PROJECT-$STAMP.zip"
+STAGE="$DIST/ghostlock-$PROJECT-v$VERSION"
+ZIP="$DIST/ghostlock-$PROJECT-v$VERSION.zip"
 
 fetch() {
   url=$1
@@ -40,7 +41,7 @@ for os in linux darwin windows; do
         "$CACHE/platform-tools-$os.zip"
 done
 
-echo "Building preload"
+echo "Building GhostLock $VERSION for $PROJECT"
 ANDROID_NDK_HOME="$NDK_DIR" make -C "$HERE" PROJECT="$PROJECT" >/dev/null
 PRELOAD="$HERE/build/$PROJECT/bin/preload"
 [ -f "$PRELOAD" ] || { echo "Build produced no preload"; exit 1; }
